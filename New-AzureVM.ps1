@@ -38,7 +38,14 @@ $ResourceGroup =  ($Name + "-VM-ResourceGroup");
 
 #Create resource group
 Write-Verbose "Creating AzureRM Resource Group: $ResourceGroup";
-New-AzureRmResourceGroup -ResourceGroupName $ResourceGroup -Location $Location | Out-Null;
+if ((Get-AzureRMResourceGroup -ResourceGroupName $ResourceGroup -ErrorAction SilentlyContinue).count -ne 1)
+{
+    New-AzureRmResourceGroup -ResourceGroupName $ResourceGroup -Location $Location | Out-Null;
+}
+else
+{
+    Write-Warning "$ResourceGroup already exists. Using existing Resource Group.";
+}
 
 #Create virtual network
 Write-Verbose "Creating Azure Virtual Network: vSubnet";
