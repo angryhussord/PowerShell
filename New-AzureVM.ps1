@@ -22,7 +22,7 @@ if ( (Get-AzureRMLocation | Where {$_.Location -eq $Location}).count -eq 0 )
 if ( (Get-AzureRmVMSize -Location $Location | Where {$_.Name -match $VMSize}).count -eq 0 )
 {
     Write-Error "Could not find a VMSize $VMSize at Location $Location".
-    Write-Error "You can find VMSizes using the Get-AzureRmVMSize -Location <location> cmdlet."
+    Write-Error "You can find VMSizes using the Get-AzureRmVMSize -Location <location> cmdlet. Not all VMSizes are available in all locations."
     return;
 }
 
